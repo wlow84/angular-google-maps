@@ -1,11 +1,11 @@
-div(ng-controller='MyCtrl1')
+div(ng-controller='StoreMapperCtrl')
     div#map_canvas
 
     form.form-inline.search
         input.btn(type='button', name='Map Search', value='Map Search', ng-click='showAddressBar = !showAddressBar')
         span(ng-show='showAddressBar')
             input#search_address(type='text', placeholder='Location Address', ng-model='address')
-            input.btn.btn-primary(type='button',value='Search')
+            input.btn.btn-primary(type='button',value='Search', ng-click='setMapAtAddress()')
 
     div.storeBar(ng-show='showStoreBar')
         div.storeBarSelection.form-inline(ng-repeat='store in stores')

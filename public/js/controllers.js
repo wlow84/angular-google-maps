@@ -12,12 +12,16 @@ function AppCtrl($scope, $http) {
         });
 }
 
-function MyCtrl1($scope, maps) {
+function StoreMapperCtrl($scope, maps) {
     //model props
     $scope.showAddressBar = false;
     $scope.address = 'Mall of america';
     $scope.showStoreBar = false;
     $scope.stores = [];
+
+    $scope.setMapAtAddress = function(){
+        maps.setMapLocation($scope.address);
+    };
 
     //toggles the display of an overlay
     $scope.toggleOverlay = function(index){
@@ -44,7 +48,6 @@ function MyCtrl1($scope, maps) {
             var path = polygon.getPath().getArray();
             $scope.stores.push({name:"", vertices:path, polygon:polygon, showOverlay:true});
             $scope.showStoreBar = true;
-
         });
     };
 
