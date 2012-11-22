@@ -1,1 +1,16 @@
-p This is the partial for view 1.
+div(ng-controller='MyCtrl1')
+    div#map_canvas
+
+    form.form-inline.search
+        input.btn(type='button', name='Map Search', value='Map Search', ng-click='showAddressBar = !showAddressBar')
+        span(ng-show='showAddressBar')
+            input#search_address(type='text', placeholder='Location Address', ng-model='address')
+            input.btn.btn-primary(type='button',value='Search')
+
+    div.storeBar(ng-show='showStoreBar')
+        div.storeBarSelection.form-inline(ng-repeat='store in stores')
+            input.checkbox(type='checkbox', ng-model='store.showOverlay', ng-click='toggleOverlay($index)')
+            input(type='text', ng-model='store.name', placeholder="Store Name")
+            img.delete(ng-src='/img/delete.png', ng-click='deleteStore($index)')
+
+    input.btn.storeBarBtn(type='button', name='Store Loc', value='Locations', ng-click='showStoreBar = !showStoreBar')
