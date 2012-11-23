@@ -9,7 +9,7 @@ div(ng-controller='StoreMapperCtrl')
 
     div.storeBar(ng-show='showStoreBar')
         div.storeBarSelection.form-inline(ng-repeat='store in stores')
-            input.checkbox(type='checkbox', ng-model='store.showOverlay', ng-click='toggleOverlay($index)')
+            input.checkbox(type='checkbox', ng-model='store.showOverlay', ng-click='updateOverlay($index)')
             input(type='text', ng-model='store.name', placeholder="Store Name")
             img.delete(ng-src='/img/delete.png', ng-click='deleteStore($index)')
 

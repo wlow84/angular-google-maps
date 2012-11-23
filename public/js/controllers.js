@@ -24,7 +24,7 @@ function StoreMapperCtrl($scope, maps) {
     };
 
     //toggles the display of an overlay
-    $scope.toggleOverlay = function(index){
+    $scope.updateOverlay = function(index){
         var store = $scope.stores[index];
         if(store.showOverlay){
             maps.showPolygon(store.polygon);
