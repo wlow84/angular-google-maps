@@ -4,13 +4,16 @@ div(ng-controller='StoreMapperCtrl')
     form.form-inline.search
         input.btn(type='button', name='Map Search', value='Map Search', ng-click='showAddressBar = !showAddressBar')
         span(ng-show='showAddressBar')
-            input#search_address(type='text', placeholder='Location Address', ng-model='address')
+            input#search_address.search-query(type='text', placeholder='Location Address', ng-model='address')
             input.btn.btn-primary(type='button',value='Search', ng-click='setMapAtAddress()')
 
     div.storeBar(ng-show='showStoreBar')
-        div.storeBarSelection.form-inline(ng-repeat='store in stores')
-            input.checkbox(type='checkbox', ng-model='store.showOverlay', ng-click='updateOverlay($index)')
+        div.store-search
+            input.search-query(type='text',placeholder='Search', ng-model='search.name')
+        div.storeBarSelection.form-inline(ng-repeat='store in stores | filter:search', ng-class='store.highlight')
+            input.checkbox(type='checkbox', ng-model='store.showOverlay', ng-click='updateOverlay(store)')
             input(type='text', ng-model='store.name', placeholder="Store Name")
-            img.delete(ng-src='/img/delete.png', ng-click='deleteStore($index)')
+            input.input-small(type='text', ng-model='store.number', placeholder="Store Number")
+            img.delete(ng-src='/img/delete.png', ng-click='deleteStore(store)')
 
     input.btn.storeBarBtn(type='button', name='Store Loc', value='Locations', ng-click='showStoreBar = !showStoreBar')

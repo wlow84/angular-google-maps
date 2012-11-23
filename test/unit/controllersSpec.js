@@ -16,7 +16,7 @@ describe('StoreMapperCtrl', function(){
                 setMapLocation:function(e){
                     this.mapAddress = e;
                 },
-                setPolygonCompleteHandler:function(e){},
+                setPolygonHandlers:function(e){},
                 showPolygon:function(e){},
                 hidePolygon:function(e){}
             };
@@ -32,7 +32,7 @@ describe('StoreMapperCtrl', function(){
             },
             map = {
                 setMapLocation:function(e){},
-                setPolygonCompleteHandler:function(e){},
+                setPolygonHandlers:function(e){},
                 showPolygon:function(e){},
                 hidePolygon:function(e){}
             },
@@ -60,7 +60,7 @@ describe('StoreMapperCtrl', function(){
                 showCalled:false,
                 hideCalled:false,
                 setMapLocation:function(e){},
-                setPolygonCompleteHandler:function(e){},
+                setPolygonHandlers:function(e){},
                 showPolygon:function(e){
                     this.showCalled=true;
                 },
@@ -82,7 +82,7 @@ describe('StoreMapperCtrl', function(){
         expect(scope.stores.length).toBe(1);
         expect(scope.stores[0].showOverlay).toBe(true);
         expect(scope.showStoreBar).toBe(true);
-        scope.updateOverlay(0);
+        scope.updateOverlay(scope.stores[0]);
         expect(map.showCalled).toBe(true);
         scope.stores[0].showOverlay = false;
         scope.updateOverlay(0);
@@ -96,8 +96,9 @@ describe('StoreMapperCtrl', function(){
             map = {
                 hideCalled:false,
                 setMapLocation:function(e){},
-                setPolygonCompleteHandler:function(e){},
+                setPolygonHandlers:function(e){},
                 showPolygon:function(e){},
+                setPolygonColor:function(){},
                 hidePolygon:function(e){
                     this.hideCalled=true;
                 }

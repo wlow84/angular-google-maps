@@ -34,6 +34,7 @@ body{
     color:white;
     background: #a9a9a9;
     text-align: center;
+    border:1px solid black;
 
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -41,7 +42,7 @@ body{
     right:5px;
     top:5px;
     bottom:40px;
-    width:300px;
+    width:400px;
 
     overflow: scroll;
 }
@@ -53,7 +54,7 @@ body{
     background: white;
     color:black;
 
-    width:280px;
+    width:380px;
     margin-left: auto;
     margin-right: auto;
 
@@ -61,6 +62,16 @@ body{
     border-radius: 5px;
 }
 
+.highlight{
+    -moz-box-shadow:    0px 0px 2px 3px #add8e6;
+    -webkit-box-shadow: 0px 0px 2px 3px #add8e6;
+    box-shadow:         0px 0px 2px 3px #add8e6;
+}
+
 .delete{
     width:25px;
+}
+
+.store-search{
+    margin-top:2px;
 }

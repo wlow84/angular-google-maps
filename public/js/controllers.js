@@ -24,8 +24,7 @@ function StoreMapperCtrl($scope, maps) {
     };
 
     //toggles the display of an overlay
-    $scope.updateOverlay = function(index){
-        var store = $scope.stores[index];
+    $scope.updateOverlay = function(store){
         if(store.showOverlay){
             maps.showPolygon(store.polygon);
         }
@@ -36,9 +35,15 @@ function StoreMapperCtrl($scope, maps) {
     }
 
     //delete a polygon from scope
-    $scope.deleteStore = function(index){
-        var store = $scope.stores[index];
+    $scope.deleteStore = function(store){
         maps.hidePolygon(store.polygon);
+        var index;
+        for(var i=0; i < $scope.stores.length;i++){
+            if(store===$scope.stores[i]){
+                index = i;
+                break;
+            }
+        }
         $scope.stores.splice(index,1);
     };
 
@@ -46,13 +51,27 @@ function StoreMapperCtrl($scope, maps) {
     $scope.polygonCompleted = function(polygon){
         $scope.$apply(function(){
             var path = polygon.getPath().getArray();
-            $scope.stores.push({name:"", vertices:path, polygon:polygon, showOverlay:true});
+            $scope.stores.push({name:"", number:"",vertices:path, polygon:polygon, showOverlay:true,highlight:'highlight'});
             $scope.showStoreBar = true;
         });
     };
 
+    //handler to capture the polygon was selected
+    $scope.polygonSelected = function(polygon){
+        $scope.$apply(function(){
+            for(var store in $scope.stores){
+                if($scope.stores[store].polygon===polygon){
+                    $scope.stores[store].highlight = 'highlight';
+                }
+                else{
+                    $scope.stores[store].highlight = '';
+                }
+            }
+        });
+    }
+
     maps.setMapLocation($scope.address);
-    maps.setPolygonCompleteHandler($scope.polygonCompleted);
+    maps.setPolygonHandlers($scope.polygonCompleted,$scope.polygonSelected);
 }
 //MyCtrl1.$inject = [];
 
