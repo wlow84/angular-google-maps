@@ -9,7 +9,7 @@ div(ng-controller='StoreMapperCtrl')
 
     div.storeBar(ng-show='showStoreBar')
         div.store-search
-            input.search-query(type='text',placeholder='Search', ng-model='search.name')
+            input.search-query(type='text',placeholder='Search for Store', ng-model='search.name')
         div.storeBarSelection.form-inline(ng-repeat='store in stores | filter:search', ng-class='store.highlight')
             input.checkbox(type='checkbox', ng-model='store.showOverlay', ng-click='updateOverlay(store)')
             input(type='text', ng-model='store.name', placeholder="Store Name")

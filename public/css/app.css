@@ -63,9 +63,7 @@ body{
 }
 
 .highlight{
-    -moz-box-shadow:    0px 0px 2px 3px #add8e6;
-    -webkit-box-shadow: 0px 0px 2px 3px #add8e6;
-    box-shadow:         0px 0px 2px 3px #add8e6;
+    background-color:yellow;
 }
 
 .delete{

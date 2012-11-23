@@ -120,6 +120,46 @@ describe('StoreMapperCtrl', function(){
         scope.deleteStore(1);
         expect(scope.stores.length).toBe(2);
         expect(map.hideCalled).toBe(true);
+    });
 
-    })
+    it('should set the highlight when polygonSelected is called',function(){
+        var scope={
+                $apply:function(e){e();}
+            },
+            map = {
+                hideCalled:false,
+                setMapLocation:function(e){},
+                setPolygonHandlers:function(e){},
+                showPolygon:function(e){},
+                setPolygonColor:function(){},
+                hidePolygon:function(e){
+                    this.hideCalled=true;
+                }
+            },
+            polygon = {
+                getPath:function(){
+                    return {
+                        getArray:function(){
+                            return [1,2,3,4];
+                        }
+                    }
+                }
+            },
+            polygon1 = {
+                getPath:function(){
+                    return {
+                        getArray:function(){
+                            return [5,6,7,8];
+                        }
+                    }
+                }
+            };
+        var storeMapperCtrl = new StoreMapperCtrl(scope, map);
+        scope.polygonCompleted(polygon);
+        expect(scope.stores[0].highlight).toBe('highlight');
+        scope.polygonCompleted(polygon1);
+        scope.polygonSelected(polygon1);
+        expect(scope.stores[0].highlight).toBe('');
+        expect(scope.stores[1].highlight).toBe('highlight');
+    });
 });
