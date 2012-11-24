@@ -25,6 +25,7 @@ angular.module('myApp.services', [])
             clearSelection();
             selectedPolygon = shape;
             shape.setEditable(true);
+            map.panTo(getPolygonCenter(shape.getPath().getArray()));
         }
 
         //return LatLng of polygon center
@@ -55,7 +56,8 @@ angular.module('myApp.services', [])
             geocoder =  new google.maps.Geocoder();
             var mapOptions = {
                 zoom: 17,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                minZoom:15
             };
             map = new google.maps.Map(document.getElementById("map_canvas"),
                 mapOptions);
@@ -100,7 +102,6 @@ angular.module('myApp.services', [])
                     return function(){
                         setSelection(polygon);
                         polygonSelectedHandler(polygon);
-                        map.panTo(getPolygonCenter(polygon.getPath().getArray()));
                     }
                 }
 

@@ -14,6 +14,7 @@ function AppCtrl($scope, $http) {
 
 function StoreMapperCtrl($scope, maps) {
     //model props
+    $scope.mall = "Mall of America";
     $scope.showAddressBar = false;
     $scope.address = 'Mall of america';
     $scope.showStoreBar = false;
