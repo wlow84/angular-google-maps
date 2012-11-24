@@ -27,6 +27,29 @@ angular.module('myApp.services', [])
             shape.setEditable(true);
         }
 
+        //return LatLng of polygon center
+        function getPolygonCenter(verticesArray){
+            var lat1 = 0;
+            var lat2 = 0;
+            var lng1 = 0;
+            var lng2 = 0;
+            for(var i in verticesArray){
+                if(lat1==0 || verticesArray[i].lat()< lat1){
+                    lat1 = verticesArray[i].lat();
+                }
+                if(lat2==0 || verticesArray[i].lat()> lat2){
+                    lat2 = verticesArray[i].lat();
+                }
+                if(lng1==0 || verticesArray[i].lng()< lng1){
+                    lng1 = verticesArray[i].lng();
+                }
+                if(lng2==0 || verticesArray[i].lng()> lng2){
+                    lng2 = verticesArray[i].lng();
+                }
+            }
+            return new google.maps.LatLng(lat1+(lat2-lat1)/2, lng1+(lng2-lng1)/2);
+        }
+
         //function to initialize the map
         function initialize(){
             geocoder =  new google.maps.Geocoder();
@@ -65,7 +88,7 @@ angular.module('myApp.services', [])
             setMapLocation:function(address){
                 geocoder.geocode( { 'address': address}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
+                        map.panTo(results[0].geometry.location);
                     } else {
                         alert('Geocode was not successful for the following reason: ' + status);
                     }
@@ -73,15 +96,19 @@ angular.module('myApp.services', [])
             },
             //add handler to polygoncomplete
             setPolygonHandlers:function(polygonCompleteHandler, polygonSelectedHandler){
+                var clickHandler = function(polygon){
+                    return function(){
+                        setSelection(polygon);
+                        polygonSelectedHandler(polygon);
+                        map.panTo(getPolygonCenter(polygon.getPath().getArray()));
+                    }
+                }
+
                 google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon){
                     drawingManager.setDrawingMode(null);
                     polygon.set('fillColor',colors[Math.floor(Math.random()*colors.length)]);
-                    google.maps.event.addListener(polygon, 'click', function() {
-                        setSelection(polygon);
-                        polygonSelectedHandler(polygon);
-                    });
-                    setSelection(polygon);
-                    polygonSelectedHandler(polygon);
+                    google.maps.event.addListener(polygon, 'click', clickHandler(polygon));
+                    clickHandler(polygon)();
                     polygonCompleteHandler(polygon);
                 });
             },
