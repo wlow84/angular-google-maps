@@ -119,7 +119,8 @@ angular.module('myApp.services', [])
             //hide the polygon
             hidePolygon:function(polygon){
                 polygon.setMap(null);
-            }
+            },
+            setSelection:setSelection
         };
     }).
     value('version', '0.1');

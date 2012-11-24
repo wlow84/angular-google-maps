@@ -44,7 +44,7 @@ body{
     bottom:40px;
     width:400px;
 
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .storeBarSelection{

@@ -19,6 +19,22 @@ function StoreMapperCtrl($scope, maps) {
     $scope.showStoreBar = false;
     $scope.stores = [];
 
+    var highlightStore = function(polygon){
+        for(var store in $scope.stores){
+            if($scope.stores[store].polygon===polygon){
+                $scope.stores[store].highlight = 'highlight';
+            }
+            else{
+                $scope.stores[store].highlight = '';
+            }
+        }
+    };
+
+    $scope.selectStore= function(store){
+        maps.setSelection(store.polygon);
+        highlightStore(store.polygon);
+    };
+
     $scope.setMapAtAddress = function(){
         maps.setMapLocation($scope.address);
     };
@@ -59,14 +75,7 @@ function StoreMapperCtrl($scope, maps) {
     //handler to capture the polygon was selected
     $scope.polygonSelected = function(polygon){
         $scope.$apply(function(){
-            for(var store in $scope.stores){
-                if($scope.stores[store].polygon===polygon){
-                    $scope.stores[store].highlight = 'highlight';
-                }
-                else{
-                    $scope.stores[store].highlight = '';
-                }
-            }
+            highlightStore(polygon);
         });
     }
 

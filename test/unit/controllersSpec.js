@@ -13,11 +13,13 @@ describe('StoreMapperCtrl', function(){
                 setMapLocation:function(e){},
                 setPolygonHandlers:function(e){},
                 showPolygon:function(e){},
-                hidePolygon:function(e){}
+                hidePolygon:function(e){},
+                setSelection:function(e){}
             };
         spyOn(map,'setMapLocation');
         spyOn(map,'showPolygon');
         spyOn(map,'hidePolygon');
+        spyOn(map,'setSelection').andCallThrough();
         storeMapperCtrl = new StoreMapperCtrl(scope, map);
     });
 
@@ -109,6 +111,34 @@ describe('StoreMapperCtrl', function(){
         expect(scope.stores[0].highlight).toBe('highlight');
         scope.polygonCompleted(polygon1);
         scope.polygonSelected(polygon1);
+        expect(scope.stores[0].highlight).toBe('');
+        expect(scope.stores[1].highlight).toBe('highlight');
+    });
+
+    it('should set the highlight when selectStore is called',function(){
+        var polygon = {
+                getPath:function(){
+                    return {
+                        getArray:function(){
+                            return [1,2,3,4];
+                        }
+                    }
+                }
+            },
+            polygon1 = {
+                getPath:function(){
+                    return {
+                        getArray:function(){
+                            return [5,6,7,8];
+                        }
+                    }
+                }
+            };
+        scope.polygonCompleted(polygon);
+        expect(scope.stores[0].highlight).toBe('highlight');
+        scope.polygonCompleted(polygon1);
+        scope.selectStore(scope.stores[1]);
+        expect(map.setSelection).toHaveBeenCalled();
         expect(scope.stores[0].highlight).toBe('');
         expect(scope.stores[1].highlight).toBe('highlight');
     });
