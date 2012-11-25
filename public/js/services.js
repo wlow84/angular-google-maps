@@ -52,14 +52,14 @@ angular.module('myApp.services', [])
         }
 
         //function to initialize the map
-        function initialize(){
+        function initialize(elmId){
             geocoder =  new google.maps.Geocoder();
             var mapOptions = {
                 zoom: 17,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 minZoom:15
             };
-            map = new google.maps.Map(document.getElementById('map_canvas'),
+            map = new google.maps.Map(document.getElementById(elmId),
                 mapOptions);
 
             drawingManager = new google.maps.drawing.DrawingManager({
@@ -82,8 +82,6 @@ angular.module('myApp.services', [])
             });
             drawingManager.setMap(map);
         }
-
-        initialize();
 
         return {
             //sets the map location to address specified
@@ -121,6 +119,7 @@ angular.module('myApp.services', [])
             hidePolygon:function(polygon){
                 polygon.setMap(null);
             },
+            initialize:initialize,
             setSelection:setSelection
         };
     }).

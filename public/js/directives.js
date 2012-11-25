@@ -14,11 +14,9 @@ angular.module('myApp.directives', [])
             });
         }
     })
-    .directive('mtMaps',function(maps){
-        return function(scope, element, attrs) {
-            var map = new google.maps.Map(element, opts);
-
-            //Set scope variable for the map
-            model.assign(scope, maps);
-        };
+    .directive('mtMaps',function(){
+        return {
+            restrict:'E',
+            template:'<span>hello world</span>'
+        }
     });

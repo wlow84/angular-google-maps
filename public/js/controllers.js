@@ -85,12 +85,12 @@ function StoreMapperCtrl($scope, maps) {
         });
     }
 
-    maps.setMapLocation($scope.address);
-    maps.setPolygonHandlers($scope.polygonCompleted,$scope.polygonSelected);
+    $scope.initialize = function(mapElm){
+        maps.initialize(mapElm);
+        maps.setMapLocation($scope.address);
+        maps.setPolygonHandlers($scope.polygonCompleted,$scope.polygonSelected);
+    }
 }
 //MyCtrl1.$inject = [];
 
-
-function MyCtrl2() {
-}
 //MyCtrl2.$inject = [];

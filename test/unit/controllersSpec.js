@@ -14,15 +14,22 @@ describe('StoreMapperCtrl', function(){
                 setPolygonHandlers:function(e){},
                 showPolygon:function(e){},
                 hidePolygon:function(e){},
-                setSelection:function(e){}
+                setSelection:function(e){},
+                initialize:function(e){}
             };
         spyOn(map,'setMapLocation');
         spyOn(map,'showPolygon');
         spyOn(map,'hidePolygon');
         spyOn(map,'setSelection').andCallThrough();
+        spyOn(map,'initialize');
         storeMapperCtrl = new StoreMapperCtrl(scope, map);
     });
 
+    it('should call the map initialize',function(){
+        var testElm = 'test-elm';
+        scope.initialize(testElm);
+        expect(map.initialize).toHaveBeenCalledWith(testElm);
+    });
 
     it('should call set map at address', function() {
         var address = 'malltip mall';
