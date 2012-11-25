@@ -12,8 +12,13 @@ function AppCtrl($scope, $http) {
         });
 }
 
+function MallDirectoryCtrl($scope){
+    $scope.title = "Mall Directory"
+}
+
 function StoreMapperCtrl($scope, maps) {
     //model props
+    $scope.title = "Store Mapper";
     $scope.mall = "Mall of America";
     $scope.showAddressBar = false;
     $scope.address = 'Mall of america';

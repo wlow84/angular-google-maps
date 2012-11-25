@@ -59,7 +59,7 @@ angular.module('myApp.services', [])
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 minZoom:15
             };
-            map = new google.maps.Map(document.getElementById("map_canvas"),
+            map = new google.maps.Map(document.getElementById('map_canvas'),
                 mapOptions);
 
             drawingManager = new google.maps.drawing.DrawingManager({

@@ -82,3 +82,9 @@ body{
     left:70px;
     text-shadow: 0 0 0.2em #65acff, 0 0 0.2em #65acff
 }
+
+.fuxor{
+    position: fixed;
+    bottom: 5px;
+    right: 200px;
+}
