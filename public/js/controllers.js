@@ -13,7 +13,8 @@ function AppCtrl($scope, $http) {
 }
 
 function MallDirectoryCtrl($scope){
-    $scope.title = "Mall Directory"
+    $scope.title = "Mall Directory";
+    $scope.tooltip= "hello world";
 }
 
 function StoreMapperCtrl($scope, maps) {

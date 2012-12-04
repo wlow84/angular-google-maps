@@ -1,0 +1,25 @@
+div(ng-controller='StoreMapperCtrl')
+    div#map_canvas(ng-init='initialize("map_canvas")')
+
+    div#title
+        |{{mall}}
+    form.form-inline.search
+        input.btn(type='button', name='Map Search', value='Map Search',
+                   ng-click='showAddressBar = !showAddressBar')
+        span(ng-show='showAddressBar')
+            input#search_address.search-query(type='text',
+            placeholder='Location Address', ng-model='address')
+            input.btn.btn-primary(type='button',value='Search', ng-click='setMapAtAddress()')
+
+    div.storeBar(ng-show='showStoreBar')
+        div.store-search
+            input.search-query(type='text',placeholder='Search for Store', ng-model='search.name')
+            |Showing {{(stores | filter:search).length}}/{{stores.length}} Stores
+        div.storeBarSelection.form-inline(ng-repeat='store in stores | filter:search', ng-class='store.highlight')
+            input.checkbox(type='checkbox', ng-model='store.showOverlay', ng-click='updateOverlay(store)')
+            input(type='text', ng-model='store.name', placeholder="Store Name", mt-focus="selectStore(store)")
+            input.input-small(type='text', ng-model='store.number', placeholder="Store Number", mt-focus="selectStore(store)")
+            img.delete(ng-src='/img/delete.png', ng-click='deleteStore(store)')
+
+    input.btn.storeBarBtn(type='button', name='Store Loc', value='Locations', ng-click='showStoreBar = !showStoreBar')
+
